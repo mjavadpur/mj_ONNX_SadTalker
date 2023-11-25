@@ -71,7 +71,7 @@ class GFPGANFaceAugment:
     def forward(self, img):
         height, width = img.shape[0], img.shape[1]
         img = self.pre_process(img)
-        t = timeit.default_timer()
+        # t = timeit.default_timer()
         ort_inputs = {self.ort_session.get_inputs()[0].name: img}
         ort_outs = self.ort_session.run(None, ort_inputs)
         output = ort_outs[0][0]
@@ -79,6 +79,8 @@ class GFPGANFaceAugment:
         # print('infer time:',timeit.default_timer()-t)  
         output = output.astype(np.uint8)
         return output, inv_soft_mask
+    
+    
         
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("onnxruntime demo")
